@@ -1,8 +1,21 @@
-import React from "react";
-import { useState } from "react";
+import React, { useEffect ,useRef,useState } from "react";
 
 const Dropdown = ({ options, selected, onSelectChange }) => {
     const [open,setOpen] = useState(false)
+    const ref = useRef();
+
+    useEffect(()=>{
+        const onBodyClick = (e)=>{
+            if(ref.current.contains(e.target)){
+                return;
+            }
+            setOpen(false)
+        }
+        document.body.addEventListener("click",onBodyClick);
+        return () =>{
+            document.body.removeEventListener('click',onBodyClick)
+        }
+    },[])
 
   const getOptions = options.map((option) => {
     // 因為React jsx語法無法顯示null 所以這樣意思是 如果我選的值跟選項的值相同的話，回傳null(讓他不顯示)
@@ -18,7 +31,7 @@ const Dropdown = ({ options, selected, onSelectChange }) => {
   });
 
   return (
-    <div className="ui form">
+    <div ref={ref} className="ui form">
       <div className="field">
         <label className="label">下拉選單</label>
         <div onClick={()=>{
