@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import Accordion from "./components/Accordion";
 import Search from "./components/Search";
 import Dropdown from "./components/Dropdown";
-import { useState } from "react";
-
+import Translate from "./components/Translate";
+import Route from "./components/Route";
+import Header from "./components/Header";
 const items = [
   {
     title: "Q1 find Work",
@@ -36,23 +37,26 @@ const options = [
 
 const App = () => {
   const [selected, setSelected] = useState(options[0]);
-  const [showDropdown, setShowDropdown] = useState(true);
   return (
     <div>
-      <button
-        onClick={() => {
-          setShowDropdown(!showDropdown);
-        }}
-      >
-        下拉選單
-      </button>
-      {showDropdown ? (
+      <Header />
+      <Route path="/">
+        <Accordion items={items} />
+      </Route>
+      <Route path="/list">
+        <Search />
+      </Route>
+      <Route path="/dropdown">
         <Dropdown
+          label="選個顏色"
+          onSelectChange={setSelected}
           options={options}
           selected={selected}
-          onSelectChange={setSelected}
         />
-      ) : null}
+      </Route>
+      <Route path="/translate">
+        <Translate />
+      </Route>
     </div>
   );
 };

@@ -6,7 +6,7 @@ const Search = () => {
   const [term, setTerm] = useState("api");
   const [debouncedTerm, setDebouncedTerm] = useState(term);
   const [results, setResults] = useState([]);
-//   一秒後沒有在搜尋任何內容才發請求
+//   0.8秒後沒有在搜尋任何內容才發請求
   useEffect(() => {
     const timerId = setTimeout(() => {
       setDebouncedTerm(term);

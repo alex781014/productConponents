@@ -1,6 +1,6 @@
 import React, { useEffect ,useRef,useState } from "react";
 
-const Dropdown = ({ options, selected, onSelectChange }) => {
+const Dropdown = ({ label,options, selected, onSelectChange }) => {
     const [open,setOpen] = useState(false)
     const ref = useRef();
 
@@ -33,14 +33,19 @@ const Dropdown = ({ options, selected, onSelectChange }) => {
   return (
     <div ref={ref} className="ui form">
       <div className="field">
-        <label className="label">下拉選單</label>
-        <div onClick={()=>{
+        <label className="label">{label}</label>
+        <div
+          onClick={() => {
             // !open 這樣會提供當前的反值 false>true  true>false
             setOpen(!open);
-        }} className={`ui selection dropdown ${open?'visible active':''}`}>
+          }}
+          className={`ui selection dropdown ${open ? "visible active" : ""}`}
+        >
           <i className="dropdown icon"></i>
           <div className="text">{selected.label}</div>
-          <div className={`menu ${open?'visible transition':''}`}>{getOptions}</div>
+          <div className={`menu ${open ? "visible transition" : ""}`}>
+            {getOptions}
+          </div>
         </div>
       </div>
     </div>
